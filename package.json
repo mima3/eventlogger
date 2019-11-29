@@ -1,0 +1,23 @@
+{
+  "name": "eventlogger",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mima3/eventlogger.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mima3/eventlogger/issues"
+  },
+  "homepage": "https://github.com/mima3/eventlogger#readme",
+  "description": "",
+  "devDependencies": {
+    "eslint": "^6.7.1",
+    "eslint-config-google": "^0.14.0"
+  }
+}
