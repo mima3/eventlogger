@@ -140,9 +140,9 @@ EventLogger.prototype.clickHandler = function(event) {
       event.target,
       {
         offsetX: event.offsetX,
-        offsetY: event.offsetY,
+        offsetY: event.offsetY
       },
-      0,
+      0
   );
   const self = this;
   setTimeout(function() {
@@ -158,7 +158,7 @@ EventLogger.prototype.scrollHandler = function(event) {
         x: window.pageXOffset,
         y: window.pageYOffset,
       },
-      1000,
+      1000
   );
 };
 
@@ -194,7 +194,7 @@ EventLogger.prototype.changeInputHandler = function(event) {
       {
         value: value,
       },
-      0,
+      0
   );
 };
 EventLogger.prototype.changeCheckHandler = function(event) {
@@ -204,7 +204,7 @@ EventLogger.prototype.changeCheckHandler = function(event) {
       {
         checked: event.target.checked,
       },
-      0,
+      0
   );
 };
 
@@ -226,7 +226,7 @@ EventLogger.prototype.changeSelectHandler = function(event) {
       {
         selectIndex: selectIndex,
       },
-      0,
+      0
   );
 };
 EventLogger.prototype.messageHandler = function(event) {
@@ -238,6 +238,6 @@ EventLogger.prototype.messageHandler = function(event) {
         message: event.data.recordedMessage,
         result: event.data.recordedResult,
       },
-      0,
+      0
   );
 };
