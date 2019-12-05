@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+  <title>Storage Sample</title>
+</head>
+<body>
+<p>
+  KEY:
+  <input id="storeKey" type="text" value="testData"></input>
+</p>
+<p>
+  DATA:<BR>
+  <textarea id="storeMsg" col="40" row="10"></textarea>
+</p>
+<p>
+  EVENT:<BR>
+  <select id="eventLog" multiple="multiple"></select>
+</p>
+<button id="update">update</button>
+<button id="reload">reload</button>
+<button id="testObject">testObject</button>
+<button id="delete">delete</button>
+<button id="clear">clear</button>
+<button id="keyList">keyList</button>
+<p>
+  Big Data:<BR>
+  <input id="bigSize" type="text" value="5242880"></input>
+  <button id="updateBigData">大量データ書き込み</button>
+</p>
+<script>
+  reloadStorage();
+  // 指定のキーの値を更新
+  document.getElementById('update').addEventListener('click', function() {
+    let key = document.getElementById('storeKey').value;
+    let contents = document.getElementById('storeMsg').value;
+    localStorage.setItem(key, contents);
+    console.log('localStorage.setItem(%s, %s)', key, contents);
+  });
+  
+  // ストレージ読み込み
+  function reloadStorage() {
+    let key = document.getElementById('storeKey').value;
+    let contents = localStorage.getItem(key);
+    document.getElementById('storeMsg').value = contents;
+    console.log('localStorage.getItem(%s) is %s', key, contents);
+  }
+
+  // 指定のキーの値を読み込む
+  document.getElementById('reload').addEventListener('click', function(){
+    reloadStorage();
+  });
+  
+
+  // 指定のキーの値を削除
+  document.getElementById('delete').addEventListener('click', function(){
+    let key = document.getElementById('storeKey').value;
+    localStorage.removeItem(key);
+    console.log('localStorage.removeItem(%s)', key);
+  });
+
+  // 全て削除
+  document.getElementById('clear').addEventListener('click', function(){
+    localStorage.clear();
+    console.log('localStorage.clear()');
+  });
+
+  // キーの一覧
+  document.getElementById('keyList').addEventListener('click', function(){
+    let keys = [];
+    for (var i = 0; i < localStorage.length; ++i) {
+      keys.push(localStorage.key(i));
+    }
+    window.alert(keys.join("\n")); 
+  });
+
+  // オブジェクトで書き込む
+  document.getElementById('testObject').addEventListener('click', function(){
+    let obj = {test:"123", value:123};
+    localStorage.setItem('testObject', obj);
+    console.log(localStorage.getItem('testObject'));
+    window.alert(JSON.stringify(localStorage.getItem('testObject'))); 
+    // オブジェクトは書き込んでも無意味。
+    // [object Object]という文字列になるだけ
+  });
+
+  // 指定のサイズのデータを作成する
+  document.getElementById('updateBigData').addEventListener('click', function(){
+    try {
+      let value = parseInt(document.getElementById('bigSize').value,10);
+      let data = Array(value).join("x");
+      let key = 'k';
+      localStorage.clear();
+      console.log('大量データ作成 key:%s size:%d', key, value);
+      localStorage.setItem(key, data);
+    } catch(e) {
+      console.log(e);
+      window.alert(e);
+    }
+  });
+
+  // storageイベント
+  window.addEventListener("storage", function (event) {
+    let data = 'key:' + event.key +
+               ' oldValue:' + event.oldValue +
+               ' newValue:' + event.newValue +
+               ' url:' + event.url +
+               ' storageArea:' + JSON.stringify(event.storageArea);
+    console.log('storage event : %o', event);
+    let eventLog = document.getElementById('eventLog');
+    let option = document.createElement("option");
+    option.text = data;
+    eventLog.appendChild(option);
+  });
+
+  // storagecommit イベント
+  window.addEventListener("storagecommit", function (event) {
+    console.log('storagecommit event : %o', event);
+  });
+
+
+</script>
+</body>
+</html>
